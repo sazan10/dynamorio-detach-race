@@ -26,4 +26,9 @@ jobs:
         run: |
           echo "Running the test program under DynamoRIO..."
           # ./DynamoRIO-Linux-6.0.0-6/bin64/drrun -- ./race_test
-          ./DynamoRIO-Linux-10.91.19860/bin64/drrun -- ./race_test
+          set +e
+          # Run the test program multiple times to reproduce the signal loss issue
+          for i in {1..100}; do
+            echo "Run $i"
+            ./DynamoRIO-Linux-10.91.19860/bin64/drrun -- ./race_test
+          done
